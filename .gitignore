@@ -347,3 +347,6 @@ ENV/
 #
 # # mypy
 .mypy_cache/
+
+'Icon'$'\r'
+Icon\r
