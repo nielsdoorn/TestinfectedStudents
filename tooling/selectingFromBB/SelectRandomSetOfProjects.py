@@ -46,7 +46,7 @@ try:
         timestamp = datetime.datetime.now()
         print("Reference time is %s" % timestamp) 
         
-        # a pipeline that samples the dataset for big enough projects within a time frame that compiled succesfully
+        # a pipeline that samples the dataset for projects big enough & within a time frame & that compiled succesfully
         end = EndBlock(config['samplesize'], "%s_projects.txt" % timestamp)
         recon = ReconstructionBlock("%s_samples" % timestamp, end)
         ucb = UserCheckerBlock(cursor, recon)
