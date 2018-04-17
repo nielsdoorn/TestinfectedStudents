@@ -23,7 +23,6 @@ config['end'] = '2017-11-13'
 dbusername = os.environ['BBDBUSER']
 dbpassword = os.environ['BBDBPASS']
 
-
 # Connect to the database
 connection = pymysql.connect(host='localhost',
                              port=3306,
@@ -40,7 +39,6 @@ try:
         timestamp = datetime.datetime.now()
         print("Reference time is %s" % timestamp) 
         
-        # a pipeline that samples the dataset for projects big enough & within a time frame & that compiled succesfully
         end = EndBlock(-1, "%s_experiments.txt" % timestamp)
         recon = ReconstructionBlock("%s_experiment" % timestamp, end)
         expidselection = SelectProjectsWithExpId(cursor, config['experimentid'], config['start'], config['end'], recon)
