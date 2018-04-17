@@ -19,6 +19,7 @@ class SelectProjectsWithExpId:
                     INNER JOIN sessions ses ON ses.id=m.session_id 
                     AND project_id IS NOT NULL
                     WHERE ses.created_at BETWEEN %s AND %s"""
+        print(sql % (self.expId, self.start, self.end))
         self.cursor.execute(sql, (self.expId, self.start, self.end))
         projectsResult = self.cursor.fetchall()
         if len(projectsResult) > 0:
