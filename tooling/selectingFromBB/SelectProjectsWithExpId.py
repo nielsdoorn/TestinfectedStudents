@@ -23,7 +23,7 @@ class SelectProjectsWithExpId:
         print(sql % data)
         projects = set()
         results = self.cursor.execute(sql, data)
-        for result in results.fetchall():
+        for result in self.cursor.fetchall():
             if result['project_id'] not in projects:
                 projects.add(result['project_id'])
                 print("processing project %s..." % result['project_id'])
