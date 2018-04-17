@@ -25,10 +25,11 @@ class SelectProjectsWithExpId:
         queryResult = self.cursor.execute(sql, data)
         results = self.cursor.fetchall()
         print(results)
-        for result in results:
-            print(".")
-            if result['project_id'] not in projects:
-                projects.add(result['project_id'])
-                print("processing project %s..." % result['project_id'])
-                project = Project(-1, result['session_id'], result['project_id'])
-                self.nextBlock.process(project)
+        if len(results) > 0:
+            for result in results:
+                print(".")
+                if result['project_id'] not in projects:
+                    projects.add(result['project_id'])
+                    print("processing project %s..." % result['project_id'])
+                    project = Project(-1, result['session_id'], result['project_id'])
+                    self.nextBlock.process(project)
