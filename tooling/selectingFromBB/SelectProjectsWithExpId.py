@@ -24,6 +24,7 @@ class SelectProjectsWithExpId:
         projects = set()
         queryResult = self.cursor.execute(sql, data)
         results = self.cursor.fetchall()
+        print(results)
         for result in results:
             print(".")
             if result['project_id'] not in projects:
