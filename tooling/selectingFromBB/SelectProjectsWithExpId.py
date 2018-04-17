@@ -17,13 +17,14 @@ class SelectProjectsWithExpId:
                     INNER JOIN sessions_for_experiment s ON m.session_id=s.id 
                     INNER JOIN sessions ses ON ses.id=m.session_id 
                     AND project_id IS NOT NULL
-                    WHERE ses.created_at BETWEEN %s AND %s"""
+                    WHERE ses.created_at BETWEEN "%s" AND "%s""""
 
         data = (self.expId, self.start, self.end)
         print(sql % data)
         projects = set()
-        queryResult = self.cursor.execute(sql, data)
-        results = self.cursor.fetchall()
+        with self.cursor as cursor:
+            queryResult = cursor.execute(sql, data)
+            results = cursor.fetchall()
         print(results)
         if len(results) > 0:
             for result in results:
