@@ -17,8 +17,8 @@ sys.stderr = codecs.getwriter('utf8')(sys.stderr)
 config = {}
 config['projects'] = set()
 config['experimentid'] = 'testinfected2017'
-config['start'] = '2017-08-28 00:00:00'
-config['end'] = '2017-11-13 00:00:00'
+config['start'] = '2017-08-28'
+config['end'] = '2017-11-13'
 
 dbusername = os.environ['BBDBUSER']
 dbpassword = os.environ['BBDBPASS']
