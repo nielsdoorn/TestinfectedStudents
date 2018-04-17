@@ -13,7 +13,7 @@ class SelectProjectsWithExpId:
         self.nextBlock = nextBlock
         
     def process(self):
-        sql = """SELECT DISTINCT m.project_id
+        sql = """SELECT DISTINCT m.project_id, s.id AS session_id
                     FROM (select @experiment:="%s") unused, master_events m 
                     INNER JOIN sessions_for_experiment s ON m.session_id=s.id 
                     INNER JOIN sessions ses ON ses.id=m.session_id 
@@ -23,5 +23,6 @@ class SelectProjectsWithExpId:
         projectsResult = self.cursor.fetchall()
         if len(projectsResult) > 0:
             for projectResult in projectsResult:
-                project = Project(-1, id, projectResult['project_id'])
+                print("processing project %s..." % projectResult['project_id'])
+                project = Project(-1, projectResult['session_id'], projectResult['project_id'])
                 self.nextBlock.process(project)
