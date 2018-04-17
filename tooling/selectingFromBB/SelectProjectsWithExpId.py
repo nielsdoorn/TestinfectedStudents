@@ -19,7 +19,7 @@ class SelectProjectsWithExpId:
                     INNER JOIN sessions ses ON ses.id=m.session_id 
                     AND project_id IS NOT NULL
                     WHERE ses.created_at BETWEEN '2017-08-28 00:00:00' AND '2017-11-13 00:00:00'"""
-        self.cursor.execute(sql, id)
+        self.cursor.execute(sql, self.expId)
         projectsResult = self.cursor.fetchall()
         if len(projectsResult) > 0:
             for projectResult in projectsResult:
