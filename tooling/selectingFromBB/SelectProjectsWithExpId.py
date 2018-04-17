@@ -21,11 +21,11 @@ class SelectProjectsWithExpId:
 
         data = (self.expId, self.start, self.end)
         print(sql % data)
-        
         projects = set()
-        for projectResult in self.cursor.execute(sql, data):
-            if projectResult['project_id'] not in projects:
-                projects.add(projectResult['project_id'])
-                print("processing project %s..." % projectResult['project_id'])
-                project = Project(-1, projectResult['session_id'], projectResult['project_id'])
+        results = self.cursor.execute(sql, data):
+        for result in results.fetchAll():
+            if result['project_id'] not in projects:
+                projects.add(result['project_id'])
+                print("processing project %s..." % result['project_id'])
+                project = Project(-1, result['session_id'], result['project_id'])
                 self.nextBlock.process(project)
