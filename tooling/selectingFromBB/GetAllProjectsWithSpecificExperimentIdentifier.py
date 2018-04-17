@@ -20,11 +20,7 @@ sys.stderr = codecs.getwriter('utf8')(sys.stderr)
 
 config = {}
 config['projects'] = set()
-config['firstTime'] = "2016-09-01 00:00:00" # 19263484
-config['lastTime'] = "2017-07-01 00:00:00" # 26911088
-config['samplesize'] = 1000
-config['samplesizeTests'] = 1000
-config['minclasses'] = 4
+config['experimentid'] = 'testinfected2017'
 
 dbusername = os.environ['BBDBUSER']
 dbpassword = os.environ['BBDBPASS']
