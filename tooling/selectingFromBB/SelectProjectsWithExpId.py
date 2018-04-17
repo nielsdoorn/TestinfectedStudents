@@ -17,7 +17,7 @@ class SelectProjectsWithExpId:
                     INNER JOIN sessions_for_experiment s ON m.session_id=s.id 
                     INNER JOIN sessions ses ON ses.id=m.session_id 
                     AND project_id IS NOT NULL
-                    WHERE ses.created_at BETWEEN \'%s\' AND \'%s\'"""
+                    WHERE ses.created_at BETWEEN %s AND %s"""
 
         data = (self.expId, self.start, self.end)
         print(sql % data)
@@ -33,3 +33,5 @@ class SelectProjectsWithExpId:
                     print("processing project %s..." % result['project_id'])
                     project = Project(-1, result['session_id'], result['project_id'])
                     self.nextBlock.process(project)
+        else:
+            print("no results")
