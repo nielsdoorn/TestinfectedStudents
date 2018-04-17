@@ -5,7 +5,7 @@ from Project import Project
 
 class SelectProjectsWithExpId:
 
-    def __init__(self, cursor, expId, start, end nextBlock):
+    def __init__(self, cursor, expId, start, end, nextBlock):
         self.cursor = cursor
         self.expId = expId
         self.start = start
