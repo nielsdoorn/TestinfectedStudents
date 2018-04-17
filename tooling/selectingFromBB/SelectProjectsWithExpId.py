@@ -19,7 +19,7 @@ class SelectProjectsWithExpId:
                     AND project_id IS NOT NULL
                     WHERE ses.created_at BETWEEN %s AND %s"""
 
-        data = self.expId, self.start, self.end)
+        data = (self.expId, self.start, self.end)
         print(sql % data)
         
         projects = set()
