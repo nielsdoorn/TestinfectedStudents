@@ -18,14 +18,14 @@ class SelectProjectsWithExpId:
                     INNER JOIN sessions ses ON ses.id=m.session_id 
                     AND project_id IS NOT NULL
                     WHERE ses.created_at BETWEEN %s AND %s"""
-        print(sql % (self.expId, self.start, self.end))
-        self.cursor.execute(sql, (self.expId, self.start, self.end))
-        projectsResult = self.cursor.fetchall()
+
+        data = self.expId, self.start, self.end)
+        print(sql % data)
+        
         projects = set()
-        if len(projectsResult) > 0:
-            for projectResult in projectsResult:
-                if projectResult['project_id'] not in projects:
-                    projects.add(projectResult['project_id'])
-                    print("processing project %s..." % projectResult['project_id'])
-                    project = Project(-1, projectResult['session_id'], projectResult['project_id'])
-                    self.nextBlock.process(project)
+        for projectResult in self.cursor.execute(sql, data):
+            if projectResult['project_id'] not in projects:
+                projects.add(projectResult['project_id'])
+                print("processing project %s..." % projectResult['project_id'])
+                project = Project(-1, projectResult['session_id'], projectResult['project_id'])
+                self.nextBlock.process(project)
