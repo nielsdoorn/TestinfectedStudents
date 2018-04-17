@@ -16,7 +16,7 @@ class EndBlock:
         print("PROJECT ID,SESSION ID,USER ID,SOURCES", file=self.outFile)
         
     def process(self, project):
-        if len(self.projects) < self.maxProjects:
+        if len(self.projects) < self.maxProjects || maxProjects == -1:
             self.projects.add(project)
             print(project, file=self.outFile)
             print(">>>> Adding project number %d of %d!" % (len(self.projects), self.maxProjects))
