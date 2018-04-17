@@ -16,8 +16,8 @@ class SelectProjectsWithExpId:
                     FROM (select @experiment:="%s") unused, master_events m 
                     INNER JOIN sessions_for_experiment s ON m.session_id=s.id 
                     INNER JOIN sessions ses ON ses.id=m.session_id 
-                    AND project_id IS NOT NULL
-                    WHERE ses.created_at BETWEEN %s AND %s"""
+                    AND project_id IS NOT NULL"""
+                 #   WHERE ses.created_at BETWEEN %s AND %s"""
 
         data = (self.expId, self.start, self.end)
         print(sql % data)
