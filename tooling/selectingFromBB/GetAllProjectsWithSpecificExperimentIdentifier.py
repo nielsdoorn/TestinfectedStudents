@@ -46,7 +46,6 @@ try:
         expidselection = SelectProjectsWithExpId(cursor, config['experimentid'], config['start'], config['end'], recon)
         
         print("Starting the processing...")
-        # start the processing in all the pipelines
 
         expidselection.process()
                 
