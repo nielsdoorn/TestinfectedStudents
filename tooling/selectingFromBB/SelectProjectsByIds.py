@@ -9,7 +9,7 @@ class SelectProjectsByIds:
         self.nextBlock = nextBlock
         
     def process(self):
-        for project in projects:
+        for project in self.projects:
             project = Project(-1, -1, project)
             self.nextBlock.process(project)
         print("done")
