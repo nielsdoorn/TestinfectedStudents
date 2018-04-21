@@ -4,7 +4,7 @@ from Project import Project
 
 class SelectProjectsByIds:
 
-    def __init__(self, cursor, projects, nextBlock):
+    def __init__(self, projects, nextBlock):
         self.projects = projects
         self.nextBlock = nextBlock
         
