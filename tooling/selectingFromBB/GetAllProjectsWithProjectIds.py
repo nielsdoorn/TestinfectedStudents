@@ -7,6 +7,7 @@ import datetime
 from EndBlock import EndBlock
 from SelectProjectsByIds import SelectProjectsByIds
 from ReconstructionBlock import ReconstructionBlock
+from ProjectSizeCheckerBlock import ProjectSizeCheckerBlock
 
 import os
 import codecs
@@ -301,7 +302,8 @@ try:
         
         end = EndBlock(-1, "%s_experiments.txt" % timestamp)
         recon = ReconstructionBlock("%s_experiment" % timestamp, end)
-        projectsByIdSelection = SelectProjectsByIds(config['projects'], recon)
+        filesaggregator = ProjectSizeCheckerBlock(cursor, 0, recon)
+        projectsByIdSelection = SelectProjectsByIds(config['projects'], filesaggregator)
         
         print("Starting the processing...")
 
