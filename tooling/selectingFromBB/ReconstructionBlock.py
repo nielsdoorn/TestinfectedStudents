@@ -29,7 +29,10 @@ class ReconstructionBlock:
                     print("[CON]  making subdirs %s" % theDir)
             with codecs.open("output/%s/%s/%s" % (self.name, project.projectId, f.name), "w+", encoding="utf-8") as output:
                 print("[CON] call print compile output with: src: %s mastereventid: %s" % (str(f.sourceFileId), str(f.masterEventId)))
-                call(["/tools/nccb/bin/print-compile-input", "/data/compile-inputs", str(f.sourceFileId), str(f.masterEventId)], stdout=output)            
+                # gives searching rest as content (useless)
+                #call(["/tools/nccb/bin/print-compile-input", "/data/compile-inputs", str(f.sourceFileId), str(f.masterEventId)], stdout=output)  
+                # slower but hopefully better
+                call(["/tools/nccb/bin/print-source-state", str(f.sourceFileId), str(f.masterEventId)], stdout=output)           
 		
         if self.nextBlock is not None:
             self.nextBlock.process(project)
