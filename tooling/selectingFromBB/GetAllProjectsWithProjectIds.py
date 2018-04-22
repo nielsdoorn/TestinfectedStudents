@@ -8,6 +8,7 @@ from EndBlock import EndBlock
 from SelectProjectsByIds import SelectProjectsByIds
 from ReconstructionBlock import ReconstructionBlock
 from ProjectSizeCheckerBlock import ProjectSizeCheckerBlock
+from ProjectCompilationCheckerBlock import ProjectCompilationCheckerBlock
 
 import os
 import codecs
@@ -280,6 +281,8 @@ config['projects'] = [
    11080500, 
    11116757 
 ]
+config['start'] = '2017-08-28'
+config['end'] = '2017-11-13'
 
 dbusername = os.environ['BBDBUSER']
 dbpassword = os.environ['BBDBPASS']
@@ -302,7 +305,8 @@ try:
         
         end = EndBlock(-1, "%s_experiments.txt" % timestamp)
         recon = ReconstructionBlock("%s_experiment" % timestamp, end)
-        filesaggregator = ProjectSizeCheckerBlock(cursor, 0, recon)
+        compilechecker = ProjectCompilationCheckerBlock(cursor, config['start'], config['end'], recon)
+        filesaggregator = ProjectSizeCheckerBlock(cursor, 0, compilechecker)
         projectsByIdSelection = SelectProjectsByIds(config['projects'], filesaggregator)
         
         print("Starting the processing...")

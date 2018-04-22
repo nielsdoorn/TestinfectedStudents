@@ -23,7 +23,7 @@ class SelectProjectsWithExpId:
         print(sql % data)
         projects = set()
         with self.cursor as c:
-            queryResult = c.execute(sql, data)
+            c.execute(sql, data)
             results = c.fetchall()
         print(results)
         if len(results) > 0:
