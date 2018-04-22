@@ -14,19 +14,21 @@ class ReconstructionBlock:
         
         
     def process(self, project):
+        print("[CON] Making dir: output/%s/%s" % (self.name, project.projectId))
         os.makedirs("output/%s/%s" % (self.name, project.projectId))
         
         for f in project.files:
             if len(f.name.split('/')) > 1:
                 theDir = "output/%s/%s/%s" % (self.name, project.projectId, f.name[:f.name.rfind('/')])
 		try:
-               	    os.stat(theDir)
+            os.stat(theDir)
 		except:
-    		    os.makedirs(theDir)   
-                    print(">>> making subdirs %s" % theDir)
+    		os.makedirs(theDir)   
+            print("[CON]  making subdirs %s" % theDir)
             
-            with codecs.open("output/%s/%s/%s" % (self.name, project.projectId, f.name), "w+", encoding="utf-8") as output:
-                call(["/tools/nccb/bin/print-compile-input", "/data/compile-inputs", str(f.sourceFileId), str(f.masterEventId)], stdout=output)            
+        with codecs.open("output/%s/%s/%s" % (self.name, project.projectId, f.name), "w+", encoding="utf-8") as output:
+            print("[CON] call print compile output with: src: %s mastereventid: %s" % (str(f.sourceFileId), str(f.masterEventId)))
+            call(["/tools/nccb/bin/print-compile-input", "/data/compile-inputs", str(f.sourceFileId), str(f.masterEventId)], stdout=output)            
 		
         if self.nextBlock is not None:
             self.nextBlock.process(project)
