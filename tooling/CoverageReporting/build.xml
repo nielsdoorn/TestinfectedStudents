@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<project name="CodeCoverage" default="apl">
+    <taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="/usr/local/Cellar/ant-contrib/1.0b3/share/ant/ant-contrib-1.0b3.jar"/>
+    <!-- -->
+    <property name="clover.jar" location="clover-ant-4.2.1/lib/clover.jar"/>
+    <!-- -->
+    <taskdef resource="cloverlib.xml" classpath="${clover.jar}"/>
+    <!-- -->
+    <path id="junitpath">
+        <pathelement location="junit-4.12.jar"/>
+        <pathelement location="hamcrest-core-1.3.jar"/>
+        <pathelement path="${clover.jar}"/>
+    </path>
+    <!-- -->
+    <target name="clover.pdf">
+        <clover-pdf-report outfile="${project}/coverage/coverage.pdf"/>
+    </target>
+    <!-- -->
+    <target name="clover.log">
+        <clover-log />
+    </target>
+    <target name="report.json">
+        <clover-report>
+            <current outfile="${project}/coverage/coverage.json">
+                <format type="json"/>
+                <columns>
+                    <lineCount/>
+                    <ncLineCount/>
+                </columns>
+            </current>
+        </clover-report>
+    </target>
+    <!-- -->
+    <junit>
+        <classpath refid="junitpath" />
+        <formatter type="xml"/>
+    </junit>
+    <!-- -->
+    <target name="clean">
+        <delete dir="${project}/bin" />
+        <delete dir="${project}/test" />
+        <delete dir="${project}/coverage" />
+    </target>
+    <target name="makedir" depends="clean">
+        <mkdir dir="${project}/bin" />
+        <mkdir dir="${project}/test" />
+        <mkdir dir="${project}/coverage" />
+    </target>
+    <!-- -->
+    <target name="clover.clean">
+        <clover-clean />
+    </target>
+    <target name="with.clover">
+        <clover-setup />
+    </target>
+    <target name="compile" depends="with.clover">
+        <javac includeantruntime="false" srcdir="${project}" destdir="${project}/bin" failonerror="no">
+            <classpath refid="junitpath" />
+        </javac>
+    </target>
+    <target name="test">
+        <junit printsummary="on" fork="false" haltonfailure="no">
+            <classpath>
+                <pathelement location="${project}/bin"/>
+                <pathelement location="junit-4.12.jar"/>
+                <pathelement location="hamcrest-core-1.3.jar"/>
+                <pathelement path="${clover.jar}"/>
+            </classpath>
+            <formatter type="plain" />
+            <batchtest todir="${project}/test">
+                <fileset dir="${project}">
+                    <!-- include name="**/*Test*.java" /-->
+                    <include name="**/*.java" />
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
+    <target name="coverage" depends="clover.clean, makedir">
+        <echo message="Analysing ${project}" />
+        <trycatch>
+            <try>
+                <antcall target="compile" inheritRefs="true">
+                    <param name="project" value="${project}"/>
+                </antcall>
+                <antcall target="test" inheritRefs="true">
+                    <param name="project" value="${project}"/>
+                </antcall>
+                <antcall target="clover.pdf" inheritRefs="true">
+                    <param name="project" value="${project}"/>
+                </antcall>
+                <antcall target="clover.log" inheritRefs="true">
+                    <param name="project" value="${project}"/>
+                </antcall>
+                <echo message="COVERAGE OK" />
+            </try>
+            <catch>
+                <echo message="COVERAGE failed...." />
+            </catch>
+        </trycatch>
+    </target>
+    <!-- -->
+    <target name="apl" depends="clover.clean">
+        <foreach target="coverage" param="project" inheritall="true">
+            <path>
+                <dirset dir="../studentsprojects/">
+                    <include name="*"/>
+                </dirset>
+            </path>
+        </foreach>
+    </target>
+    <target name="ultraclean">
+        <foreach target="makedir" param="project" inheritall="true">
+            <path>
+                <dirset dir="../studentsprojects/">
+                    <include name="*"/>
+                </dirset>
+            </path>
+        </foreach>
+    </target>
+</project>
