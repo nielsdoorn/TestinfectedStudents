@@ -7,7 +7,7 @@ class SourceFile:
         self.masterEventId = masterEventId
 
     def __str__(self):
-	return self.__repr__()
+        return self.__repr__()
     
     def __repr__(self):
         return "sourcefileid: %s mastereventid: %s" % (self.sourceFileId, self.masterEventId)
