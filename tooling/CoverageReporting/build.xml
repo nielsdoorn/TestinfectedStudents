@@ -19,6 +19,20 @@
     <target name="clover.log">
         <clover-log />
     </target>
+    <target name="clover.xml">
+        <clover-report>
+            <current outfile="${project}/coverage/coverage.xml" summary="false">
+                <format type="xml"/>
+            </current>
+        </clover-report>
+    </target>
+    <target name="cloversummary.xml">
+        <clover-report>
+            <current outfile="${project}/coverage/coveragesummary.xml" summary="true">
+                <format type="xml"/>
+            </current>
+        </clover-report>
+    </target>
     <target name="report.json">
         <clover-report>
             <current outfile="${project}/coverage/coverage.json">
@@ -85,7 +99,13 @@
                 <antcall target="test" inheritRefs="true">
                     <param name="project" value="${project}"/>
                 </antcall>
-                <antcall target="clover.pdf" inheritRefs="true">
+                <antcall target="clover.xml" inheritRefs="true">
+                    <param name="project" value="${project}"/>
+                </antcall>
+                <antcall target="cloversummary.xml" inheritRefs="true">
+                    <param name="project" value="${project}"/>
+                </antcall>
+                 <antcall target="clover.pdf" inheritRefs="true">
                     <param name="project" value="${project}"/>
                 </antcall>
                 <antcall target="clover.log" inheritRefs="true">
