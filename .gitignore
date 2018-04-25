@@ -352,6 +352,10 @@ ENV/
 Icon\r
 tooling/Icon
 Icon
+**/Icon*
 tooling/CoverageReporting/.clover/*
 tooling/studentsprojects/10624057/bin/Icon
 tooling/studentsprojects/*
+tooling/projectsWithCoverage_analyse/*
+tooling/tentamen project/*
+tooling/uitwerkingenTentamen/*
