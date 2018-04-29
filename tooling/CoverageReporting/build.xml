@@ -27,28 +27,28 @@
     </path>
     <!-- -->
     <target name="clover.pdf">
-        <clover-pdf-report outfile="${project}/coverage/coverage.pdf" projectName="${projectid}" />
+        <clover-pdf-report outfile="${project}/coverage/coverage-${projectid}.pdf" projectName="${projectid}" />
     </target>
     <target name="clover.log">
         <clover-log />
     </target>
     <target name="clover.xml">
         <clover-report projectName="${projectid}">
-            <current outfile="${project}/coverage/coverage.xml" summary="false">
+            <current outfile="${project}/coverage/coverage-${projectid}.xml" summary="false">
                 <format type="xml"/>
             </current>
         </clover-report>
     </target>
     <target name="cloversummary.xml">
         <clover-report projectName="${projectid}">
-            <current outfile="${project}/coverage/coveragesummary.xml" summary="true">
+            <current outfile="${project}/coverage/coveragesummary-${projectid}.xml" summary="true">
                 <format type="xml"/>
             </current>
         </clover-report>
     </target>
     <target name="report.json">
         <clover-report projectName="${projectid}">
-            <current outfile="${project}/coverage/coverage.json">
+            <current outfile="${project}/coverage/coverage-${projectid}.json">
                 <format type="json"/>
                 <columns>
                     <lineCount/>
