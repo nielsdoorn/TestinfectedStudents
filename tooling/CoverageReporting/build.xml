@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <project name="CodeCoverage" default="apl">
-    <property name="my.basedir" value="../uitwerkingenTentamen" />
+    <property name="my.basedir" value="../RQ2/datasets/random" />
+    <property name="my.destdir" value="../RQ2/random" />
     <scriptdef name="substring" language="javascript">
         <attribute name="text" />
         <attribute name="start" />
@@ -39,9 +40,11 @@
             </current>
         </clover-report>
     </target>
+
+    <!-- summary in seperate folder -->
     <target name="cloversummary.xml">
         <clover-report projectName="${projectid}">
-            <current outfile="${project}/coverage/coveragesummary-${projectid}.xml" summary="true">
+            <current outfile="${my.destdir}/coveragesummary-${projectid}.xml" summary="true">
                 <format type="xml"/>
             </current>
         </clover-report>
@@ -114,14 +117,17 @@
                 <antcall target="test" inheritRefs="true">
                     <param name="project" value="${project}"/>
                 </antcall>
+                <!--
                 <antcall target="clover.xml" inheritRefs="true">
                     <param name="project" value="${project}"/>
                     <param name="projectid" value="${projectid}"/>
                 </antcall>
+                -->
                 <antcall target="cloversummary.xml" inheritRefs="true">
                     <param name="project" value="${project}"/>
                     <param name="projectid" value="${projectid}"/>
                 </antcall>
+                <!--
                 <antcall target="clover.pdf" inheritRefs="true">
                     <param name="project" value="${project}"/>
                     <param name="projectid" value="${projectid}"/>
@@ -130,8 +136,11 @@
                     <param name="project" value="${project}"/>
                     <param name="projectid" value="${projectid}"/>
                 </antcall>
+                -->
                 <!-- copy project to seperate dir -->
-                <length file="${project}/coverage/coverage.pdf" property="coveragelength" />
+
+                <!--
+                <length file="${project}/coverage/coverage-*.pdf" property="coveragelength" />
                 <if>
                     <equals arg1="${coveragelength}" arg2="0" />
                     <then>
@@ -145,6 +154,7 @@
                         <echo message=">>>>>>>> PROJECT WITH COVERAGE" />
                     </else>
                 </if>
+                -->
             </try>
             <catch>
                 <echo message=">>>>>>>> COVERAGE failed...." />
@@ -153,8 +163,10 @@
     </target>
     <!-- -->
     <target name="apl" depends="clover.clean">
+        <!--
         <delete dir="${my.basedir}/projectsWithCoverage" />
         <mkdir dir="${my.basedir}/projectsWithCoverage" />
+        -->
         <foreach target="coverage" param="project" inheritall="true">
             <path>
                 <dirset dir="${my.basedir}/">
