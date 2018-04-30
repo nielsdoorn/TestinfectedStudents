@@ -44,22 +44,24 @@
     <!-- summary in seperate folder -->
     <target name="cloversummary.xml">
         <clover-report projectName="${projectid}">
-            <current outfile="${my.destdir}/coveragesummary-${projectid}.xml" summary="true">
-                <format type="xml"/>
-            </current>
-        </clover-report>
-    </target>
-    <target name="report.json">
-        <clover-report projectName="${projectid}">
-            <current outfile="${project}/coverage/coverage-${projectid}.json">
-                <format type="json"/>
+            <current outfile="${my.destdir}/coveragesummary-${projectid}/" title="${projectid}" summary="true">
+                <format type="json" callback=""/>
                 <columns>
-                    <lineCount/>
-                    <ncLineCount/>
+                    <coveredStatements format="%"/>
+                    <coveredBranches format="%"/>
+                    <coveredMethods format="%"/>
+                    <totalPercentageCovered format="%"/>
+                    <lineCount />
+                    <ncLineCount />
+                    <totalBranches />
+                    <totalFiles />
+                    <totalMethods />
+                    <totalClasses />
                 </columns>
             </current>
         </clover-report>
     </target>
+    
     <!-- -->
     <junit>
         <classpath refid="junitpath" />
@@ -117,12 +119,7 @@
                 <antcall target="test" inheritRefs="true">
                     <param name="project" value="${project}"/>
                 </antcall>
-                <!--
-                <antcall target="clover.xml" inheritRefs="true">
-                    <param name="project" value="${project}"/>
-                    <param name="projectid" value="${projectid}"/>
-                </antcall>
-                -->
+
                 <antcall target="cloversummary.xml" inheritRefs="true">
                     <param name="project" value="${project}"/>
                     <param name="projectid" value="${projectid}"/>
@@ -170,7 +167,7 @@
         <foreach target="coverage" param="project" inheritall="true">
             <path>
                 <dirset dir="${my.basedir}/">
-                    <include name="*"/>
+                    <include name="**"/>
                 </dirset>
             </path>
         </foreach>
@@ -185,4 +182,16 @@
             </path>
         </foreach>
     </target>
+
+
+
+    <!-- process results -->
+    <target name="processResults">
+        <xslt basedir="${my.destdir}/" destdir="${my.destdir}/aggregatedData/" style="convertToLatex.xslt" includes="*.xml" extension=".tex"/>
+    </target>
+
+    <target name="processJson">
+
+    </target>
+
 </project>
