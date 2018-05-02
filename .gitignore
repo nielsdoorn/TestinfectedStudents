@@ -361,3 +361,6 @@ tooling/tentamen project/*
 tooling/uitwerkingenTentamen/*
 tooling/RQ3/*
 tooling/RQ2/*
+tooling/CoverageReporting/out.txt
+
+.vscode

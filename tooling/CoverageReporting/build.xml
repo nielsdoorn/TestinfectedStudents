@@ -168,6 +168,8 @@
             <path>
                 <dirset dir="${my.basedir}/">
                     <include name="*"/>
+                    <exclude name="*10334110*"/>
+                    <exclude name="*10474733*"/>
                 </dirset>
             </path>
         </foreach>
