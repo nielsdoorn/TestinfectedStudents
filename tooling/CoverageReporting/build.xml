@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <project name="CodeCoverage" default="apl">
-    <property name="my.basedir" value="../RQ2/datasets/tests" />
-    <property name="my.destdir" value="../RQ2/tests" />
+    <property name="my.basedir" value="../RQ3/hertentamen" />
+    <property name="my.destdir" value="../RQ3/hertentamenCoverage" />
     <scriptdef name="substring" language="javascript">
         <attribute name="text" />
         <attribute name="start" />
@@ -124,11 +124,11 @@
                     <param name="project" value="${project}"/>
                     <param name="projectid" value="${projectid}"/>
                 </antcall>
-                <!--
                 <antcall target="clover.pdf" inheritRefs="true">
                     <param name="project" value="${project}"/>
                     <param name="projectid" value="${projectid}"/>
                 </antcall>
+                <!--
                 <antcall target="clover.log" inheritRefs="true">
                     <param name="project" value="${project}"/>
                     <param name="projectid" value="${projectid}"/>
@@ -168,8 +168,6 @@
             <path>
                 <dirset dir="${my.basedir}/">
                     <include name="*"/>
-                    <exclude name="*10334110*"/>
-                    <exclude name="*10474733*"/>
                 </dirset>
             </path>
         </foreach>
@@ -191,9 +189,4 @@
     <target name="processResults">
         <xslt basedir="${my.destdir}/" destdir="${my.destdir}/aggregatedData/" style="convertToLatex.xslt" includes="*.xml" extension=".tex"/>
     </target>
-
-    <target name="processJson">
-
-    </target>
-
 </project>
