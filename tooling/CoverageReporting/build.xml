@@ -1,11 +1,12 @@
 <?xml version="1.0"?>
 <project name="CodeCoverage" default="apl">
-    <property name="my.basedir" value="../RQ2/datasets/random" />
-    <property name="my.destdir" value="../RQ3/random" />
     <!--
-    <property name="my.basedir" value="../RQ2/datasets/tests" />
-    <property name="my.destdir" value="../RQ3/tests" />
+    <property name="my.basedir" value="../RQ2/datasets/random" />
+    <property name="my.destdir" value="../RQ2/random" />
     -->
+    <property name="my.basedir" value="../RQ2/datasets/tests" />
+    <property name="my.destdir" value="../RQ2/tests" />
+    
     <scriptdef name="substring" language="javascript">
         <attribute name="text" />
         <attribute name="start" />
