@@ -4,8 +4,8 @@
     <property name="my.basedir" value="../RQ2/datasets/random" />
     <property name="my.destdir" value="../RQ2/random" />
     -->
-    <property name="my.basedir" value="../RQ2/datasets/tests" />
-    <property name="my.destdir" value="../RQ2/tests" />
+    <property name="my.basedir" value="../RQ2/datasets/tests_seperated" />
+    <property name="my.destdir" value="../RQ2/tests_seperated" />
     
     <scriptdef name="substring" language="javascript">
         <attribute name="text" />
@@ -98,7 +98,7 @@
         </javac>
     </target>
     <target name="test">
-        <junit printsummary="on" fork="false" haltonfailure="no">
+        <junit printsummary="on" fork="true" haltonfailure="no">
             <classpath>
                 <pathelement location="${project}/bin"/>
                 <pathelement location="junit-4.12.jar"/>
@@ -123,10 +123,11 @@
                 <antcall target="compile" inheritRefs="true">
                     <param name="project" value="${project}"/>
                 </antcall>
-                <antcall target="test" inheritRefs="true">
+                
+                <!--<antcall target="test" inheritRefs="true">
                     <param name="project" value="${project}"/>
-                </antcall>
-
+                </antcall>-->
+            
                 <antcall target="cloversummary.xml" inheritRefs="true">
                     <param name="project" value="${project}"/>
                     <param name="projectid" value="${projectid}"/>

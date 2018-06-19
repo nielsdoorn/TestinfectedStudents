@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<project name="PMD" default="apl">
+	<!--
+	<property name="my.basedir" value="../RQ2/datasets/random" />
+	<property name="my.destdir" value="../RQ2/pmd/random" />
+	-->
+	<property name="my.basedir" value="../RQ2/datasets/tests_seperated" />
+	<property name="my.destdir" value="../RQ2/pmd/tests_serperated" />
+    <!--  -->
+	<scriptdef name="substring" language="javascript">
+		<attribute name="text" />
+		<attribute name="start" />
+		<attribute name="end" />
+		<attribute name="property" />
+		<![CDATA[
+		var text = attributes.get("text");
+		var start = attributes.get("start");
+		if (parseInt(start) < 0) {
+		    start = text.length() + parseInt(start);
+		}
+		var end = attributes.get("end") || text.length();
+        var result = text.substring(start, end);
+        var res = result.replace("/", "0");
+		project.setProperty(attributes.get("property"), res);
+
+		]]>
+	</scriptdef>
+    <!--  -->
+	<path id="pmd.classpath">
+		<fileset dir="pmd/lib/">
+			<include name="*.jar"/>
+		</fileset>	
+	</path>
+	<!--
+	<path id="pmd.classpath">
+        <pathelement location="pmd/lib/asm-3.2.jar"/>
+        <pathelement location="pmd/lib/jaxen-1.1.1.jar"/>
+        <pathelement location="pmd/lib/junit-4.4.jar"/>
+        <pathelement location="pmd/lib/pmd-4.2.6.jar"/>
+	</path>
+	-->
+	<taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" classpathref="pmd.classpath" />
+    <!--  -->
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="/usr/local/Cellar/ant-contrib/1.0b3/share/ant/ant-contrib-1.0b3.jar" />
+    <!--  -->
+	<target name="apl">
+		<!--
+		<delete dir="${my.basedir}/projectsWithCoverage" />
+		<mkdir dir="${my.basedir}/projectsWithCoverage" />
+		-->
+		<foreach target="runpmd" param="project" inheritall="true">
+			<path>
+				<dirset dir="${my.basedir}/">
+					<include name="*" />
+				</dirset>
+			</path>
+		</foreach>
+	</target>
+    <!--  -->
+    <target name="runpmd">
+        <substring text="${project}" start="-8" property="projectid" />
+        <pmd shortFilenames="true" cacheLocation="../RQ2/pmd/cache/pmdcache"> 
+			<ruleset>category/java/bestpractices.xml</ruleset>
+			<ruleset>category/java/codestyle.xml</ruleset>
+			<ruleset>category/java/design.xml</ruleset>
+            <formatter type="csv" toFile="${my.destdir}/pmd_report_${projectid}.csv" toConsole="true"/>
+            <fileset dir="${project}">
+                <include name="**/*.java"/>
+            </fileset>
+        </pmd>
+    </target>
+</project>
